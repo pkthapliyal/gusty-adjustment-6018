@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lawyer Form</title>
+    <link rel="stylesheet" href="./lawyer.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <span>Lawyer Portal</span>
+      </div>
+      <!-- Add other navbar items here -->
+    </nav>
+
+    <!-- Lawyer Form -->
+    <div class="form-container">
+      <h1>Lawyer Form</h1>
+      <form id="lawyerForm">
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required />
+
+        <label for="specialization">Specialization:</label>
+        <input type="text" id="specialization" name="specialization" required />
+
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image" accept="image/*" required />
+
+        <label for="practiceAreas">Practice Areas:</label>
+        <input type="text" id="practiceAreas" name="practiceAreas" required />
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <script src="./lawyer.js"></script>
+  </body>
+</html>
