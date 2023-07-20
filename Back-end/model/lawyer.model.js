@@ -23,7 +23,6 @@ const lawyerSchema = mongoose.Schema({
     {
       startTime: {
         type: String,
-        required: true,
       },
     },
   ],

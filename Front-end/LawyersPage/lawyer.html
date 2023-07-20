@@ -9,6 +9,9 @@
   <body>
     <!-- Navbar -->
     <nav class="navbar">
+      <div class="logo">
+        <img src="../logo_legal_guidance.png" alt="logo" />
+      </div>
       <div class="navbar-brand">
         <span>Lawyer Portal</span>
       </div>
@@ -16,7 +19,7 @@
     </nav>
 
     <!-- Lawyer Form -->
-    <div class="form-container">
+    <div class="form-container slide-down">
       <h1>Lawyer Form</h1>
       <form id="lawyerForm">
         <label for="location">Location:</label>
@@ -33,6 +36,14 @@
 
         <button type="submit">Submit</button>
       </form>
+    </div>
+
+    <div class="sliding-box" id="lawyerInfo">
+      <div class="lawyer-info-content">
+        <h2>Lawyer Name</h2>
+        <p>Email: lawyer@example.com</p>
+        <!-- Add other lawyer information here (e.g., image) -->
+      </div>
     </div>
 
     <script src="./lawyer.js"></script>
