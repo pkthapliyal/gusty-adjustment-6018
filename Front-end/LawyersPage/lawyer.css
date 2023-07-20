@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: #102d47;
+  background-color: #fcf5eb;
   color: white;
 }
 
@@ -11,19 +11,23 @@ body {
   padding: 10px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .navbar-brand {
   font-size: 24px;
   font-weight: bold;
+  text-align: center;
 }
 
 .form-container {
   background-color: #f89d1f;
   padding: 20px;
-  margin: 20px auto;
+  margin: 148px auto;
   max-width: 500px;
   border-radius: 10px;
+  animation: slideDownAnimation 1.5s ease forwards;
+  opacity: 0;
 }
 
 .form-container h1 {
@@ -66,4 +70,47 @@ body {
   color: red;
   font-size: 14px;
   margin-top: -10px;
+}
+.logo img {
+  width: 210px;
+  height: 48px;
+}
+
+.slide-down {
+  animation: slideDownAnimation 1.5s ease forwards;
+  opacity: 0;
+}
+
+@keyframes slideDownAnimation {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.sliding-box {
+  position: fixed;
+  top: -200px; /* Start above the form container */
+  right: 20px;
+  width: 200px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  box-shadow: 0 0 10px #f89d1f;
+  transition: top 0.5s ease;
+  z-index: 999;
+}
+
+.sliding-box.active {
+  top: 124px; /* Slide in to top of the form container */
+}
+
+.sliding-box h2,
+.sliding-box p {
+  margin: 0;
+  color: #333;
 }
