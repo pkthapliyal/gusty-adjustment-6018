@@ -1,0 +1,167 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+
+p {
+    font-weight: 300;
+    color: #111;
+}
+
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px 100px;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: .5s;
+}
+
+.sticky {
+    background: #fff;
+    padding: 10px 100px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.sticky .logo {
+    color: #111;
+}
+
+.sticky .navigation li a {
+    color: #111;
+}
+
+header .logo {
+    color: #fff;
+    font-weight: bold;
+    font-size: 2.5em;
+    text-decoration: none;
+}
+
+.logo_legal {
+    border-radius: 15px;
+    width: 190px;
+}
+
+header .logo span {
+    color: #ff0157;
+}
+
+header .navigation {
+    position: relative;
+    display: flex;
+}
+
+header .navigation li {
+    list-style: none;
+    margin-left: 30px;
+}
+
+header .navigation li a {
+    text-decoration: none;
+    color: black;
+    font-weight: 300;
+    font-size: 1.5em;
+    transition: .5s;
+}
+
+header .navigation li a:hover {
+    color: #ff0157;
+}
+
+header {
+    font-size: 12px;
+}
+
+@media screen and (max-width: 650px) {
+
+    .title {
+        color: grey;
+    }
+
+    /* ................. */
+
+    @media (max-width: 991px) {
+
+        header,
+        header .sticky {
+            padding: 10px 20px;
+        }
+
+        header .navigation {
+            display: none;
+        }
+
+        header .navigation.active {
+            width: 100%;
+            height: calc(100% - 68px);
+            position: fixed;
+            top: 68px;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: #fff;
+        }
+
+        header .navigation li {
+            margin-left: 0;
+        }
+
+        header .navigation li a {
+            color: #111;
+            font-size: 1.6em;
+        }
+
+        .menutoggle {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            background: url(https://i.postimg.cc/qq7WKZ1m/menu.png);
+            background-size: 30px;
+            background-repeat: no-repeat;
+            background-position: center;
+            cursor: pointer;
+        }
+
+        .menutoggle.active {
+            background: url(https://i.postimg.cc/yNcK65Gc/close.png);
+            background-size: 25px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .sticky .menutoggle {
+            filter: invert(1);
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        .banner .content h2 {
+            font-size: 3em;
+            color: #fff;
+        }
+
+        .contactform {
+            padding: 40px 30px;
+        }
+
+        .sticky {
+            padding: 10px 30px;
+        }
+    }
+
+}
