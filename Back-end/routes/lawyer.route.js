@@ -1,20 +1,30 @@
 const express = require("express");
 const { auth } = require("../middleware/authenticate");
 const { LawyerModel } = require("../model/lawyer.model");
+const { UserModel } = require("../model/user.model");
 const lawyerRoute = express.Router();
 
 lawyerRoute.post("/add", auth, async (req, res) => {
   try {
-    const { location, specialization, slots, practiceAreas, image } = req.body;
-    const lawyerId = req.userId;
+    const { location, specialization, practiceAreas, image, description } =
+      req.body;
+
+    const userId = req.userId;
+    const user = await UserModel.findById(req.userId);
+    console.log(user);
 
     const newLawyer = new LawyerModel({
-      lawyerId,
+      userId,
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      role: user.role,
+      isVerified: user.isVerified,
       location,
       specialization,
-      slots,
       practiceAreas,
       image,
+      description,
     });
     await newLawyer.save();
     res.status(200).send(newLawyer);
@@ -24,7 +34,17 @@ lawyerRoute.post("/add", auth, async (req, res) => {
   }
 });
 
-lawyerRoute.get("lawyerId/:id", auth, async (req, res) => {
+//  All lawyers with profile
+lawyerRoute.get("/", async (req, res) => {
+  const { id } = req.query;
+  if (id) {
+    const lawyer = await LawyerModel.findOne({ _id: id });
+  }
+  let laywers = await LawyerModel.find();
+  res.status(200).send(laywers);
+});
+
+lawyerRoute.get("/:id", auth, async (req, res) => {
   try {
     const lawyer = await LawyerModel.findById(req.params.id).exec();
     if (!lawyer) {
@@ -57,7 +77,14 @@ lawyerRoute.get("/find-id", auth, async (req, res) => {
 
 lawyerRoute.put("/:id", auth, async (req, res) => {
   try {
-    const { location, specialization, slots, practiceAreas, image } = req.body;
+    const {
+      location,
+      specialization,
+      slots,
+      practiceAreas,
+      image,
+      description,
+    } = req.body;
     const updatedLawyer = await LawyerModel.findByIdAndUpdate(
       req.params.id,
       {

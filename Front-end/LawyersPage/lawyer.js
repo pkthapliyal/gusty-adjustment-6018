@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
       specialization: specialization,
       practiceAreas: practiceAreas,
       image: image.name, // Use the file name as a placeholder
-      slots: [{ startTime: 1 }],
+      slots: [1, 2, 3, 4],
     };
     console.log(formData);
 
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGI3YWViNGI5MjRkZjE2MWJjZmZlODEiLCJpYXQiOjE2ODk4NjYxNDYsImV4cCI6MTY4OTg2OTc0Nn0.oQ2HkQv2k03DQY0EUG8PYWv4QRyLUqOwBQQUwVBWsIc`,
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGI3YWViNGI5MjRkZjE2MWJjZmZlODEiLCJpYXQiOjE2ODk5MTkxOTgsImV4cCI6MTY4OTkyMjc5OH0.iH3zEFX3I6Bo3sSf9VlSMq2kYSaNQsdwJTSO2gRZjTM`,
       },
       body: JSON.stringify(formData),
     });
