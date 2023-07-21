@@ -57,7 +57,7 @@ prevNextIcon.forEach(icon => { // getting prev and next icons
 
 
 function getDate(date, month, year) {
-    console.log(date, month, year)
+    slotDate = `${date}-${month}-${year}`
 }
 
 

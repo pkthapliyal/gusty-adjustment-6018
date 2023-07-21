@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Dynamic Calendar JavaScript | CodingNepal</title>
+    <link rel="stylesheet" href="booking.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Font Link for Icons -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <script src="booking.js" defer></script>
+
+    <style>
+        #main-container {
+            width: 90%;
+            margin: auto;
+            margin-top: 150px;
+            display: grid;
+            padding: 2%;
+            border: 1px solid red;
+            grid-template-columns: 30% 20% 50%;
+        }
+
+        #main-container>div:nth-child(1) {
+            height: fit-content;
+        }
+
+        #main-container>div:nth-child(2) {
+            height: fit-content;
+            margin-top: 50%;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: grid;
+            gap: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+
+        /* input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        } */
+
+
+        #formButton {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="#" class="logo"><img class="logo_legal" src="../logo_legal_guidance.png" alt=""></span></a>
+        <div class="menutoggle" onclick="togglemenu();">
+        </div>
+        <ul class="navigation">
+            <!-- <li><a href="#banner">Solution</a></li> -->
+            <li><a href="#about">Partners</a></li>
+            <li><a href="#menu">About Us</a></li>
+            <li><a href="#appointments">My Appointments</a></li>
+            <li><a href="#signin">Log In</a></li>
+            <li><a href="#signup">Sign Up</a></li>
+        </ul>
+    </nav>
+
+    <div id="main-container">
+        <div class="wrapper">
+            <header>
+                <p class="current-date"></p>
+                <div class="icons">
+                    <span id="prev" class="material-symbols-rounded">chevron_left</span>
+                    <span id="next" class="material-symbols-rounded">chevron_right</span>
+                </div>
+            </header>
+            <div class="calendar">
+                <ul class="weeks">
+                    <li>Sun</li>
+                    <li>Mon</li>
+                    <li>Tue</li>
+                    <li>Wed</li>
+                    <li>Thu</li>
+                    <li>Fri</li>
+                    <li>Sat</li>
+                </ul>
+                <ul class="days"></ul>
+            </div>
+        </div>
+
+        <!--  slots -->
+
+        <div id="slot">
+            <!--  slots Button here -->
+
+        </div>
+
+        <!--  Forms  For booking-->
+        <div>
+            <div class="container" style="display: block">
+                <h2>Contact Form</h2>
+                <form id="contactForm">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" required>
+
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" required>
+
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" required>
+
+                    <label for="details">Details:</label>
+                    <textarea id="details" rows="4" required></textarea>
+                    <button type="submit" id="formButton">Submit</button>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+</body>
+
+<script>
+
+
+    //  Fetch the data of individual lawyer for slots
+    let id;
+    document.addEventListener('DOMContentLoaded', function () {
+        const params = new URLSearchParams(window.location.search);
+        id = params.get('id');
+
+        function fetchData() {
+            fetch(`http://localhost:3300/lawyer/${id}`, {
+                method: "GET",
+                headers: {
+                    "content-type": "application/json"
+                }
+            })
+                .then((res) => {
+                    return res.json();
+                }).then((data) => {
+                    // console.log(data.slots)
+                    checkSlots(data.slots)
+                }).catch((err) => {
+                    console.log(JSON.stringify(err))
+                })
+        }
+        fetchData();
+    });
+
+    const slotsDiv = document.getElementById("slot")
+    let time;
+    let slotDate;
+    function checkSlots(slots) {
+        let slot = [2, 4, 5, 7]
+
+        for (let i = 0; i < slots.length; i++) {
+            let button = document.createElement("button");
+            button.innerText = slots[i][0]
+            button.setAttribute("class", "slot")
+
+            // Get all the slots of that perticular person
+            if (slot.includes(+button.innerText)) {
+                button.disabled = true;
+                button.style.backgroundColor = "#EF5350"
+            }
+            button.addEventListener("click", () => {
+                console.log(button.innerText)
+                time = "12:00"
+            })
+            slotsDiv.append(button)
+        }
+    }
+
+    //  From values 
+    const contactForm = document.getElementById('contactForm');
+
+    contactForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            address: document.getElementById('address').value,
+            phone: Number(document.getElementById('phone').value),
+            subject: document.getElementById('subject').value,
+            details: document.getElementById('details').value,
+        };
+        formData.date = slotDate;
+        formData.time = "02:00"  // make this dynamic
+        formData.lawyerId = id;
+        formData.clientId = "64b7aeb4b924df161bcffe81";
+
+        console.log('Form Data:', formData);
+
+
+        fetch(`http://localhost:3300/appointment/`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+            .then((res) => {
+                return res.json();
+            }).then((data) => {
+                console.log(data)
+                showLawyers(data)
+            }).catch((err) => {
+                console.log(JSON.stringify(err))
+            })
+
+
+
+
+        // You can use the 'formData' object to further process the form data (e.g., sending it to a server).
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>
