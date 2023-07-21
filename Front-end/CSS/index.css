@@ -108,7 +108,7 @@ header .logo
 
 header .logo span
 {
-    color: #ff0157;
+    color: #F89D1F;
 }
 
 header .navigation
@@ -132,7 +132,7 @@ header .navigation li a
 
 header .navigation li a:hover
 {
-    color: #ff0157;
+    color: #F89D1F;
 }
 
 section
@@ -150,7 +150,7 @@ section
 
 .titeText span
 {
-    color: #ff0157;
+    color: #F89D1F;
     font-weight: 700;
     font-size: 1.5em;
 }
@@ -266,9 +266,10 @@ section
     }
     .menutoggle{
         position: relative;
-        width: 40px;
-        height: 40px;
-        background: url(https://i.postimg.cc/qq7WKZ1m/menu.png);
+        width: 80px;
+        height: 80px;
+        background-color: #111;
+        background: url(https://e7.pngegg.com/pngimages/320/784/png-clipart-hamburger-button-computer-icons-menu-option-button-start-menu-menu.png);
         background-size: 30px;
         background-repeat: no-repeat;
         background-position: center;
@@ -276,7 +277,7 @@ section
     }
     .menutoggle.active
     {
-        background: url(https://i.postimg.cc/yNcK65Gc/close.png);
+        background: url(https://e7.pngegg.com/pngimages/320/784/png-clipart-hamburger-button-computer-icons-menu-option-button-start-menu-menu.png);
         background-size: 25px;
         background-repeat: no-repeat;
         background-position: center;
@@ -285,12 +286,16 @@ section
         filter: invert(1);
     }
     section{
+        /* margin-top: -25%; */
         padding: 20px;
     }
     .banner .content h2 {
         font-size: 3em;
-        color: #fff;
+        color: black;
     }
+    /* .kaplan_podcast{
+        margin-top: -20px;
+    } */
   
     .contactform {
         padding: 40px 30px;
