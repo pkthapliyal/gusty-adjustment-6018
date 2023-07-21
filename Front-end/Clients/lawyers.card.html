@@ -45,6 +45,7 @@
             border-bottom-left-radius: 10px;
             border-left-color: orange;
             padding: 3%;
+            margin-left: 2%;
             box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
         }
 
@@ -138,15 +139,12 @@
         <!--  appending Whole lawyer cntainer here -->
     </div>
 
-    <input type="time">
+
 
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-
-    // -------> type of Practive aresa
-
 
 
     window.addEventListener('scroll', function () {
@@ -188,10 +186,12 @@
     function showLawyers(data) {
         let lawyerList = `<div class=lawyer-list>${data.map((item) =>
             cardMaker(item.name,
-                item.profile.specialization,
-                item.profile,
-                item.profile.practiceAreas,
 
+                item.specialization,
+                item.location,
+                item.practiceAreas,
+                item.image,
+                item.description, item.userId
             )).join("")}
         
             </div>`
@@ -199,12 +199,18 @@
 
     }
 
-    function cardMaker(name, specialization, profile, practiceAreas) {
+    function cardMaker(name, specialization, location, practiceAreas, image, description, lawyerId) {
+
         let card = `<div class='lawyer-card'>
             <div id="profile">
-                <h3>${name}</h3>
+                <h2>${name}</h2>
                 <h4>${specialization}</h4>
-                <h5><i class="fa fa-map-marker"></i> ${profile.location}</h5>
+                <h5><i class="fa fa-map-marker"></i> ${location}</h5>
+                     <h4>Overview</h4>
+                <p>Advise and represent clients in criminal or civil proceedings and in other legal matters. Communicate with clients,
+                     colleagues, judges, and others involved in a case. Conduct research and analysis of legal issues. Interpret laws,
+                     rulings, and regulations for individuals and businesses.</p>
+                     <p>${description}</p> <br/>
                    
                 <div class="card">
                     <div class="card-header show-types-button">
@@ -212,17 +218,19 @@
                         <i style="font-size:20px; margin-left:20px" class="fa">&#xf05a;</i>
                     </div>
                     <div class="dropdown shoe-types-dropdown">
-                        <ul>${practiceAreas.map((slot) => `<li>${slot}</li>`)}
+                        <ul>${practiceAreas.map((area) => {
+            return `<li>${area}</li>`
+        }).join("")}
                         </ul>
                     </div>
-                </div >
+                </div>
 
                 
             </div>
             <div class="lawyer-image">
                 <img 
                     src="https://imagedelivery.net/9sCnq8t6WEGNay0RAQNdvQ/clcfvviqd03pep6ko58ltl285_3/public" alt="">
-                <button id="appoint-btn" onclick="bookAppointment('${profile.lawyerId}')">Book and Appointment now</button>
+                <button id="appoint-btn" onclick="bookAppointment('${lawyerId}')">Book and Appointment now</button>
             </div>
                        
             </div >`
