@@ -166,7 +166,7 @@
         id = params.get('id');
 
         function fetchData() {
-            fetch(`http://localhost:3300/lawyer/${id}`, {
+            fetch(`http://localhost:3300/lawyer?id=${id}`, {
                 method: "GET",
                 headers: {
                     "content-type": "application/json"
@@ -175,7 +175,7 @@
                 .then((res) => {
                     return res.json();
                 }).then((data) => {
-                    // console.log(data.slots)
+                    console.log(data.slots)
                     checkSlots(data.slots)
                 }).catch((err) => {
                     console.log(JSON.stringify(err))
