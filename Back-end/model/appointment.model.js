@@ -43,6 +43,10 @@ const appointmentType = mongoose.Schema({
     time: {
         type: String,
         required: true,
+    },
+    date: {
+        type: String,
+        required: true,
     }
 })
 const appointmentSchema = mongoose.Schema({
