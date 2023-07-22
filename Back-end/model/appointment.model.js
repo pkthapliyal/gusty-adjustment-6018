@@ -1,30 +1,33 @@
 const mongoose = require("mongoose");
 
+
+
 const appointmentType = mongoose.Schema({
-  clientId: {
-    type: String,
-    required: true,
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-  phone: {
-    type: Number,
-    required: true,
-  },
-  address: {
-    type: String,
-    required: true,
-  },
-  subject: {
-    type: String,
-    required: true,
-  },
+    clientId: {
+        type: String,
+        required: true,
+    },
+    name: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+    },
+    phone: {
+        type: Number,
+        required: true,
+    },
+    address: {
+        type: String,
+        required: true,
+    },
+    subject: {
+        type: String,
+        required: true,
+    },
+
 
   details: {
     type: String,
@@ -50,10 +53,15 @@ const appointmentSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+
     appointments: { type: [appointmentType] },
   },
   { versionKey: false }
 );
+
+    
+})
+
 
 const AppointmentModel = mongoose.model("appointment", appointmentSchema);
 
