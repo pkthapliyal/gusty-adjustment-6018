@@ -10,6 +10,7 @@ const auth = async (req, res, next) => {
     const { userId } = decodedToken;
 
     const user = await UserModel.findById(userId);
+    
     if (!user) {
       return res.status(401).json({ message: "Unauthorized" });
     }
