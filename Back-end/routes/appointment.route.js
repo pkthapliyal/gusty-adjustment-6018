@@ -141,8 +141,8 @@ async function main(subject, details, time, date, name, email) {
         port: 587,
         secure: false, // true for 465, false for other ports
         auth: {
-            user: 'pk33360@gmail.com', // generated ethereal user
-            pass: 'wiolorlcanwdapvo', // generated ethereal password
+            user: 'legalguidanceofficials@gmail.com', // generated ethereal user
+            pass: 'uwqdssymyfnvcejx', // generated ethereal password
         },
     });
 
@@ -168,5 +168,5 @@ async function main(subject, details, time, date, name, email) {
     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 }
-main("Claim", "details", "12:00 pm", "2023/07/25", "Pankaj Thapliyal", "pkthapliyal101@gmail.com")
+// main("Claim", "details", "12:00 pm", "2023/07/25", "Pankaj Thapliyal", "pkthapliyal101@gmail.com")
 module.exports = { appointRoute }
