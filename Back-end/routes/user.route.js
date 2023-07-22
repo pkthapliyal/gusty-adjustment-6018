@@ -24,6 +24,8 @@ userRoute.post("/login", async (req, res, next) => {
   try {
     const { name, password } = req.body;
     const user = await UserModel.findOne({ name });
+    const userData = await UserModel.findById(user._id);
+
     if (!user) {
       return res.status(401).json({ message: "Wrong credentials" });
     }
@@ -37,17 +39,15 @@ userRoute.post("/login", async (req, res, next) => {
       expiresIn: "1h",
     });
 
-    res.status(200).send({ token });
+    res.status(200).send({ token, userData });
   } catch (error) {
     next(error);
   }
 });
 
-
 userRoute.get("/", async (req, res) => {
-  let users = await UserModel.find()
-  res.send(users)
-})
-
+  let users = await UserModel.find();
+  res.send(users);
+});
 
 module.exports = { userRoute };
