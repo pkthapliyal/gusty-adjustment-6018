@@ -127,4 +127,16 @@ lawyerRoute.delete("/:id", auth, async (req, res) => {
 });
 
 
+lawyerRoute.get("/", async (req, res) => {
+  const { id } = req.query;
+
+  if (id) {
+    const lawyer = await LawyerModel.findOne({ _id: id });
+  }
+
+  let laywers = await LawyerModel.find();
+  res.status(200).send(laywers);
+});
+
+
 module.exports = { lawyerRoute };
