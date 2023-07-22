@@ -47,6 +47,7 @@
         form {
             display: grid;
             gap: 10px;
+            box-sizing: border-box;
         }
 
         label {
@@ -54,13 +55,13 @@
         }
 
 
-        /* input,
+        input,
         textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-        } */
+        }
 
 
         #formButton {
@@ -72,6 +73,54 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
+        #slots {
+            border: 1px solid teal;
+            margin-right: 10%;
+        }
+
+        /* Slot buuttons */
+        .slotBtn {
+            width: 100%;
+            margin: auto;
+            margin-bottom: 5%;
+            box-sizing: border-box;
+            /* width: 80%; */
+            display: block;
+
+            /* height: 50px; */
+            font-size: 1rem;
+            align-items: center;
+            padding: 5% 2% 5% 2%;
+            background-color: orange;
+            border-radius: 5px;
+            font-weight: bold;
+            border: none;
+            color: white;
+        }
+
+        .disableBtn {
+            width: 100%;
+            margin: auto;
+            margin-bottom: 5%;
+            box-sizing: border-box;
+            /* width: 80%; */
+            display: block;
+
+            /* height: 50px; */
+            font-size: 1rem;
+            align-items: center;
+            padding: 5% 2% 5% 2%;
+            background-color: orange;
+            border-radius: 5px;
+            font-weight: bold;
+            border: none;
+            color: white;
+
+        }
+
+        /* Define the red color for the selected li */
+        /* Define the red color for the selected li */
     </style>
 </head>
 
@@ -89,6 +138,10 @@
             <li><a href="#signup">Sign Up</a></li>
         </ul>
     </nav>
+
+
+    <img id="preview" alt="Preview Image">
+
 
     <div id="main-container">
         <div class="wrapper">
@@ -109,13 +162,22 @@
                     <li>Fri</li>
                     <li>Sat</li>
                 </ul>
-                <ul class="days"></ul>
+                <ul class="days" id="myList"></ul>
             </div>
         </div>
 
         <!--  slots -->
 
-        <div id="slot">
+        <div id="slots">
+            <h3>Date : <span id="selectedDate"></span> </h3>
+            <div id="">
+                <button class="disableBtn" onclick="handleButtonClick(this)">10:00 am to 11:00 am</button>
+                <button class="disableBtn" onclick="handleButtonClick(this)">12:00 pm to 01:00 pm</button>
+                <button class="disableBtn" onclick="handleButtonClick(this)">02:00 pm to 03:00 pm</button>
+                <button class="disableBtn" onclick="handleButtonClick(this)">04:00 pm to 05:00 pm</button>
+
+            </div>
+
             <!--  slots Button here -->
 
         </div>
@@ -151,113 +213,9 @@
     </div>
 
 
-
-
-
 </body>
 
 <script>
-
-
-    //  Fetch the data of individual lawyer for slots
-    let id;
-    document.addEventListener('DOMContentLoaded', function () {
-        const params = new URLSearchParams(window.location.search);
-        id = params.get('id');
-
-        function fetchData() {
-            fetch(`http://localhost:3300/lawyer?id=${id}`, {
-                method: "GET",
-                headers: {
-                    "content-type": "application/json"
-                }
-            })
-                .then((res) => {
-                    return res.json();
-                }).then((data) => {
-                    console.log(data.slots)
-                    checkSlots(data.slots)
-                }).catch((err) => {
-                    console.log(JSON.stringify(err))
-                })
-        }
-        fetchData();
-    });
-
-    const slotsDiv = document.getElementById("slot")
-    let time;
-    let slotDate;
-    function checkSlots(slots) {
-        let slot = [2, 4, 5, 7]
-
-        for (let i = 0; i < slots.length; i++) {
-            let button = document.createElement("button");
-            button.innerText = slots[i][0]
-            button.setAttribute("class", "slot")
-
-            // Get all the slots of that perticular person
-            if (slot.includes(+button.innerText)) {
-                button.disabled = true;
-                button.style.backgroundColor = "#EF5350"
-            }
-            button.addEventListener("click", () => {
-                console.log(button.innerText)
-                time = "12:00"
-            })
-            slotsDiv.append(button)
-        }
-    }
-
-    //  From values 
-    const contactForm = document.getElementById('contactForm');
-
-    contactForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const formData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            address: document.getElementById('address').value,
-            phone: Number(document.getElementById('phone').value),
-            subject: document.getElementById('subject').value,
-            details: document.getElementById('details').value,
-        };
-        formData.date = slotDate;
-        formData.time = "02:00"  // make this dynamic
-        formData.lawyerId = id;
-        formData.clientId = "64b7aeb4b924df161bcffe81";
-
-        console.log('Form Data:', formData);
-
-
-        fetch(`http://localhost:3300/appointment/`, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        })
-            .then((res) => {
-                return res.json();
-            }).then((data) => {
-                console.log(data)
-                showLawyers(data)
-            }).catch((err) => {
-                console.log(JSON.stringify(err))
-            })
-
-
-
-
-        // You can use the 'formData' object to further process the form data (e.g., sending it to a server).
-    });
-
-
-
-
-
-
-
 
 
 
