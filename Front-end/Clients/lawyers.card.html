@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./lawyers.card.css">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Document</title>
+
+    <style>
+        * {
+            background-color: #fcf5eb;
+        }
+
+        /*  Main container */
+
+        #container {
+            margin-top: 10%;
+            border: 1px solid black;
+            padding: 2%
+        }
+
+
+
+        /*  Lawyers List */
+        .lawyer-list {
+            width: 80%;
+            margin: auto;
+            /* margin: 2%; */
+            padding: 1%;
+
+        }
+
+        /* Lawyer-card */
+
+        .lawyer-card {
+            display: grid;
+            grid-template-columns: 60% 40%;
+            border: 1px solid #ccc;
+            border-left-width: 30px;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            border-left-color: orange;
+            padding: 3%;
+            margin-left: 2%;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+        }
+
+
+        /* Lawyer-image */
+        .lawyer-image img {
+            width: 100%;
+        }
+
+        /* Apointment Button */
+        #appoint-btn {
+            box-sizing: border-box;
+            width: 80%;
+            display: block;
+            margin: auto;
+            /* height: 50px; */
+            font-size: 1rem;
+            align-items: center;
+            padding: 5% 2% 5% 2%;
+            background-color: orange;
+            border-radius: 5px;
+            font-weight: bold;
+            border: none;
+            color: white;
+        }
+
+        #appoint-btn:hover {
+            box-shadow: 0 0 20px orange;
+            font-weight: bolder;
+        }
+
+
+
+        /* All card item */
+        .lawyer-card h3,
+        h4,
+        h5 {
+            margin-bottom: 10px
+        }
+
+        /*  PRactice area */
+        .card {
+            width: 60%;
+            border: 1px solid orange;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .card-header {
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .dropdown {
+            display: none;
+        }
+
+        .dropdown ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .dropdown li {
+            padding: 5px;
+            border-bottom: 1px solid orange;
+        }
+
+        .dropdown li:last-child {
+            /* border-bottom: none; */
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="#" class="logo"><img class="logo_legal" src="../logo_legal_guidance.png" alt=""></span></a>
+        <div class="menutoggle" onclick="togglemenu();">
+        </div>
+        <ul class="navigation">
+            <!-- <li><a href="#banner">Solution</a></li> -->
+            <li><a href="#about">Partners</a></li>
+            <li><a href="#menu">About Us</a></li>
+            <li><a href="#appointments">My Appointments</a></li>
+            <li><a href="#signin">Log In</a></li>
+            <li><a href="#signup">Sign Up</a></li>
+        </ul>
+    </header>
+
+    <div id="container">
+        <!--  appending Whole lawyer cntainer here -->
+    </div>
+
+
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+
+    window.addEventListener('scroll', function () {
+        const header = document.querySelector('header');
+        header.classList.toggle("sticky", window.scrollY > 0);
+    });
+
+    function togglemenu() {
+        const menutoggle = document.querySelector('.menutoggle');
+        const navigation = document.querySelector('.navigation');
+        menutoggle.classList.toggle('active');
+        navigation.classList.toggle('active');
+    };
+
+    //  MAin container 
+    const mainContainer = document.getElementById('container')
+
+    //  Fetching the Lawyers data ;
+
+    function fetchData() {
+        fetch(`http://localhost:3300/lawyer/`, {
+            method: "GET",
+            headers: {
+                "content-type": "application/json"
+            }
+        })
+            .then((res) => {
+                return res.json();
+            }).then((data) => {
+                console.log(data)
+                showLawyers(data)
+            }).catch((err) => {
+                console.log(JSON.stringify(err))
+            })
+    }
+    fetchData()
+
+
+    function showLawyers(data) {
+        let lawyerList = `<div class=lawyer-list>${data.map((item) =>
+            cardMaker(item.name,
+
+                item.specialization,
+                item.location,
+                item.practiceAreas,
+                item.image,
+                item.description, item.userId
+            )).join("")}
+        
+            </div>`
+        mainContainer.innerHTML = lawyerList;
+
+    }
+
+    function cardMaker(name, specialization, location, practiceAreas, image, description, lawyerId) {
+
+        let card = `<div class='lawyer-card'>
+            <div id="profile">
+                <h2>${name}</h2>
+                <h4>${specialization}</h4>
+                <h5><i class="fa fa-map-marker"></i> ${location}</h5>
+                     <h4>Overview</h4>
+                <p>Advise and represent clients in criminal or civil proceedings and in other legal matters. Communicate with clients,
+                     colleagues, judges, and others involved in a case. Conduct research and analysis of legal issues. Interpret laws,
+                     rulings, and regulations for individuals and businesses.</p>
+                     <p>${description}</p> <br/>
+                   
+                <div class="card">
+                    <div class="card-header show-types-button">
+                        Practice Areas
+                        <i style="font-size:20px; margin-left:20px" class="fa">&#xf05a;</i>
+                    </div>
+                    <div class="dropdown shoe-types-dropdown">
+                        <ul>${practiceAreas.map((area) => {
+            return `<li>${area}</li>`
+        }).join("")}
+                        </ul>
+                    </div>
+                </div>
+
+                
+            </div>
+            <div class="lawyer-image">
+                <img 
+                    src="https://imagedelivery.net/9sCnq8t6WEGNay0RAQNdvQ/clcfvviqd03pep6ko58ltl285_3/public" alt="">
+                <button id="appoint-btn" onclick="bookAppointment('${lawyerId}')">Book and Appointment now</button>
+            </div>
+                       
+            </div >`
+        return card;
+    }
+
+    //  To show Practice areas
+    $(document).ready(function () {
+        // Event delegation for the "Show Types of Shoe" button inside the card
+        $(document).on("click", ".show-types-button", function () {
+            // Find the dropdown associated with the clicked button (within the card)
+            const dropdown = $(this).siblings(".shoe-types-dropdown");
+            // Toggle the dropdown visibility for the clicked card
+            dropdown.slideToggle();
+            // Hide other open dropdowns (within other cards)
+            $(".shoe-types-dropdown").not(dropdown).slideUp();
+        });
+    });
+
+    //  Book appointment function 
+    function bookAppointment(lawyerId) {
+        console.log(lawyerId)
+        window.location.href = './booking.html?id=' + lawyerId;
+
+    }
+
+
+
+</script>
+
+</html>
