@@ -33,23 +33,44 @@ document.addEventListener("DOMContentLoaded", function () {
       location: location,
       specialization: specialization,
       practiceAreas: practiceAreas,
-      image: image.name, // Use the file name as a placeholder
-      slots: [{ startTime: 1 }],
+
+      image: convertToBase64(), // Use the file name as a placeholder
     };
-    console.log(formData);
 
     // const { location, specialization, slots, practiceAreas, image } = req.body;
 
     // Convert the object to JSON and send it in the request body
-    const response = await fetch("http://localhost:3300/lawyer/add", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGI3YWViNGI5MjRkZjE2MWJjZmZlODEiLCJpYXQiOjE2ODk4NjYxNDYsImV4cCI6MTY4OTg2OTc0Nn0.oQ2HkQv2k03DQY0EUG8PYWv4QRyLUqOwBQQUwVBWsIc`,
-      },
-      body: JSON.stringify(formData),
-    });
-    const responseData = await response.json();
-    console.log("Response:", responseData);
+
+    // const response = await fetch("http://localhost:3300/lawyer/add", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGI3YWViNGI5MjRkZjE2MWJjZmZlODEiLCJpYXQiOjE2ODk5MTkxOTgsImV4cCI6MTY4OTkyMjc5OH0.iH3zEFX3I6Bo3sSf9VlSMq2kYSaNQsdwJTSO2gRZjTM`,
+    //   },
+    //   body: JSON.stringify(formData),
+    // });
+    // const responseData = await response.json();
+    // console.log("Response:", responseData);
   });
+
+  function convertToBase64() {
+    const fileInput = document.getElementById("image");
+
+    // Check if a file was selected
+    if (fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function (event) {
+        const base64String = event.target.result;
+        const outputDiv = document.getElementById("output");
+        outputDiv.innerHTML = `<img src="${base64String}" alt="Converted Image">`;
+        console.log(base64String);
+        return base64String;
+      };
+
+      // Read the file as a Data URL (Base64-encoded string)
+      reader.readAsDataURL(file);
+    }
+  }
 });
