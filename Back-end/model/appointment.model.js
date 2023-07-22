@@ -1,10 +1,7 @@
 const mongoose = require("mongoose");
 
-const appointmentSchema = mongoose.Schema({
-    lawyerId: {
-        type: String,
-        required: true,
-    },
+
+const appointmentType = mongoose.Schema({
     clientId: {
         type: String,
         required: true,
@@ -47,6 +44,14 @@ const appointmentSchema = mongoose.Schema({
         type: String,
         required: true,
     }
+})
+const appointmentSchema = mongoose.Schema({
+    lawyerId: {
+        type: String,
+        required: true,
+    },
+    appointments: { type: [appointmentType] }
+
 
 }, { versionKey: false });
 
