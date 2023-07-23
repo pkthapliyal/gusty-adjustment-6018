@@ -13,6 +13,7 @@ async function getAppointments() {
 
 function displayAppointments(appointments) {
   const appointmentContainer = document.querySelector(".appointment-container");
+  appointmentContainer.innerHTML = ""; // Clear existing cards if any
 
   appointments.forEach((appointment) => {
     const appointmentCard = createAppointmentCard(appointment);

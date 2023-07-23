@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGI3YWViNGI5MjRkZjE2MWJjZmZlODEiLCJpYXQiOjE2OTAwNDAxNzYsImV4cCI6MTY5MDA0Mzc3Nn0.6Yvhkybli2wKFHC6k8xzDtf93CXNvmM775gdoN-GUrA`,
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGI3YWViNGI5MjRkZjE2MWJjZmZlODEiLCJpYXQiOjE2OTAwOTcwNjQsImV4cCI6MTY5MDEwMDY2NH0.ozmYzcykk5z9U2WcIj02sWuSUNtNS4xxuwl5ChmGVfU`,
       },
       body: JSON.stringify(formData),
     });

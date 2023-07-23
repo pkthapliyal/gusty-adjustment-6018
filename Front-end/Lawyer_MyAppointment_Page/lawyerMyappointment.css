@@ -1,52 +1,51 @@
 /* Reset some default styles */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f1f1f1;
-  }
-  
-  .appointment-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 48px;
-  }
-  
-  .appointment-card {
-    max-width: 300px;
-    background-color: #f89d1f;
-    color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 10px;
-  }
-  
-  h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  p {
-    margin-bottom: 5px;
-  }
-  
-  /* Add any additional styles as needed */
-  
-  .navbar {
-    background-color: #f89d1f;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  .navbar-brand {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f1f1f1;
+}
+
+/* Add a grid container for appointment cards */
+.appointment-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Display 3 columns */
+  grid-gap: 70px; /* Adjust as needed */
+  padding: 80px; /* Adjust as needed */
+}
+
+/* Style for the appointment card */
+.appointment-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #102d47;
+  color: white;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+p {
+  margin-bottom: 5px;
+}
+
+/* Add any additional styles as needed */
+
+.navbar {
+  background-color: #f89d1f;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+.navbar-brand {
+  font-size: 24px;
+  font-weight: bold;
+}
