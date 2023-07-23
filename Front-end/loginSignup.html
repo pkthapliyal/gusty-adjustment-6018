@@ -2,11 +2,10 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
+	<meta charset="UTF-8" />
 	<title>Log In-Sign Up</title>
-	<link rel="stylesheet" href="./CSS/loginSignup.css">
+	<link rel="stylesheet" href="./CSS/loginSignup.css" />
 	<script src="https://kit.fontawesome.com/c4c2af89bd.js" crossorigin="anonymous"></script>
-
 </head>
 
 <body>
@@ -22,20 +21,19 @@
 		<title>Sign in & Sign up Form</title>
 	</head>
 
-
 	<body>
 		<div class="container">
 			<div class="forms-container">
 				<div class="signin-signup">
-					<form action="#" class="sign-in-form" id="#form" id="formlogin">
+					<form class="sign-in-form" id="formlogin">
 						<h2 class="title">Sign in</h2>
 						<div class="input-field">
 							<i class="fas fa-user"></i>
-							<input id="name" type="text" placeholder="Email" id="useremail" />
+							<input id="login_email" type="text" placeholder="Email" />
 						</div>
 						<div class="input-field">
 							<i class="fas fa-lock"></i>
-							<input type="password" placeholder="Password" id="userpassword" />
+							<input type="password" placeholder="Password" id="login_password" />
 						</div>
 						<input type="submit" value="Login" class="btn solid" />
 						<p class="social-text">Or Sign in with social platforms</p>
@@ -54,23 +52,29 @@
 							</a>
 						</div>
 					</form>
-					<form action="#" class="sign-up-form" id="form">
+					<form class="sign-up-form" id="formsignup">
 						<h2 class="title">Sign up</h2>
 						<div class="input-field">
 							<i class="fas fa-user"></i>
-							<input id="name" type="text" placeholder="Name" />
+							<input id="signup_name" type="text" placeholder="Name" />
 						</div>
 						<div class="input-field">
 							<i class="fa-solid fa-phone"></i>
-							<input id="phonenum" type="text" placeholder="Mobile Number" />
+							<input id="signup_mobile" type="text" placeholder="Mobile Number" />
 						</div>
 						<div class="input-field">
 							<i class="fas fa-envelope"></i>
-							<input id="email" type="email" placeholder="Email" />
+							<input id="signup_email" type="email" placeholder="Email" />
 						</div>
 						<div class="input-field">
 							<i class="fas fa-lock"></i>
-							<input id="pass" type="password" placeholder="Password" />
+							<input id="signup_password" type="password" placeholder="Password" />
+						</div>
+						<div class="lawyer_client">
+							<label for="lawyer">Lawyer</label>
+							<input type="radio" id="signup_user_type" name="userType" value="lawyer" />
+							<label for="client">Client</label>
+							<input type="radio" id="signup_user_type" name="userType" value="client" />
 						</div>
 						<input type="submit" class="btn" value="Sign up" id="signup" />
 						<p class="social-text">Or Sign up with social platforms</p>
@@ -91,14 +95,11 @@
 					</form>
 				</div>
 			</div>
-
 			<div class="panels-container">
 				<div class="panel left-panel">
 					<div class="content">
 						<h3>Talk to us!</h3>
-						<p>
-							Please fill out the Details. To connect each other
-						</p>
+						<p>Please fill out the Details. To connect each other</p>
 						<button class="btn transparent" id="sign-up-btn">
 							Sign up
 						</button>
@@ -108,9 +109,7 @@
 				<div class="panel right-panel">
 					<div class="content">
 						<h3>Talk to us?</h3>
-						<p>
-							Please fill out the Details. To connect each other
-						</p>
+						<p>Please fill out the Details. To connect each other</p>
 						<button class="btn transparent" id="sign-in-btn">
 							Sign in
 						</button>
@@ -119,14 +118,11 @@
 				</div>
 			</div>
 		</div>
-
-		<script src="app.js"></script>
 	</body>
 
 	</html>
 	<!-- partial -->
 	<script src="./Script/loginSignup.js"></script>
-
 </body>
 
 </html>

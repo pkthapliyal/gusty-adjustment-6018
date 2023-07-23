@@ -47,6 +47,7 @@
             border-left-color: orange;
             padding: 3%;
             margin-left: 2%;
+            margin-top: 3%;
             box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
         }
 
@@ -130,9 +131,9 @@
             <!-- <li><a href="#banner">Solution</a></li> -->
             <li><a href="#about">Partners</a></li>
             <li><a href="#menu">About Us</a></li>
-            <li><a href="#appointments">My Appointments</a></li>
-            <li><a href="#signin">Log In</a></li>
-            <li><a href="#signup">Sign Up</a></li>
+            <li><a href="./client.appointment.html">My Appointments</a></li>
+            <li><a href="#signin" id="logoutBtn">Log Out</a></li>
+
         </ul>
     </header>
 
@@ -297,6 +298,7 @@
 
 <script>
 
+    let url = "https://legal-guidance.onrender.com/"
 
     window.addEventListener('scroll', function () {
         const header = document.querySelector('header');
@@ -316,7 +318,7 @@
     //  Fetching the Lawyers data ;
 
     function fetchData() {
-        fetch(`http://localhost:3300/lawyer/`, {
+        fetch(`${url}lawyer`, {
             method: "GET",
             headers: {
                 "content-type": "application/json"
@@ -358,10 +360,10 @@
                 <h4>${specialization}</h4>
                 <h5><i class="fa fa-map-marker"></i> ${location}</h5>
                      <h4>Overview</h4>
-                <p>Advise and represent clients in criminal or civil proceedings and in other legal matters. Communicate with clients,
+                <p style="margin-left:20px">Advise and represent clients in criminal or civil proceedings and in other legal matters. Communicate with clients,
                      colleagues, judges, and others involved in a case. Conduct research and analysis of legal issues. Interpret laws,
                      rulings, and regulations for individuals and businesses.</p>
-                     <p>${description}</p> <br/>
+                     <p style="margin-left:20px">  ${description}</p> <br/>
                    
                 <div class="card">
                     <div class="card-header show-types-button">
@@ -375,12 +377,10 @@
                         </ul>
                     </div>
                 </div>
-
-                
             </div>
             <div class="lawyer-image">
                 <img 
-                    src="https://imagedelivery.net/9sCnq8t6WEGNay0RAQNdvQ/clcfvviqd03pep6ko58ltl285_3/public" alt="">
+                    src=${image} alt="">
                 <button id="appoint-btn" onclick="bookAppointment('${lawyerId}')">Book and Appointment now</button>
             </div>
                        
@@ -405,8 +405,25 @@
     function bookAppointment(lawyerId) {
         console.log(lawyerId)
         window.location.href = './booking.html?id=' + lawyerId;
-
     }
+    let user = JSON.parse(localStorage.getItem("auth"))
+
+    let logoutBtn = document.getElementById("logoutBtn")
+
+    logoutBtn.addEventListener("click", async () => {
+        const response = await fetch(`${url}user/logout`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
+        localStorage.removeItem("auth");
+        localStorage.removeItem("lawyerId");
+        console.log(response);
+        window.location.href = "../loginSignup.html";
+    });
+
 
 
 

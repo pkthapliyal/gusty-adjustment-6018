@@ -1,197 +1,77 @@
 <!DOCTYPE html>
-
-<html lang="en" dir="ltr">
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>Dynamic Calendar JavaScript | CodingNepal</title>
-    <link rel="stylesheet" href="booking.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google Font Link for Icons -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
-    <script src="booking.js" defer></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appointments</title>
+    <link rel="stylesheet" href="./client.appointment.css" />
 
     <style>
-        .container {
-            background-color: #fff;
-            border-radius: 5px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        form {
-            display: grid;
-            gap: 10px;
-            box-sizing: border-box;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-
-        input,
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-
-        #formButton {
-            width: 100%;
-            padding: 10px;
-            background-color: #F89D20;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #slots {
-            box-sizing: border-box;
-        }
-
-        /* Slot buuttons */
-        .slotBtn {
-            width: 100%;
-            margin: auto;
-            margin-bottom: 5%;
-            box-sizing: border-box;
-            /* width: 80%; */
-            display: block;
-
-            /* height: 50px; */
-            font-size: 1rem;
+        #deleteBtn {
+            background-color: #EF5350;
             align-items: center;
-            padding: 5% 2% 5% 2%;
-            background-color: orange;
+            margin-right: 20%;
+            border-style: none;
             border-radius: 5px;
-            font-weight: bold;
-            border: none;
-            color: white;
-        }
-
-        .disableBtn {
-            width: 100%;
-            margin: auto;
-            margin-bottom: 5%;
-            box-sizing: border-box;
-            /* width: 80%; */
-            display: block;
-
-            /* height: 50px; */
-            font-size: 1rem;
-            align-items: center;
-            padding: 5% 2% 5% 2%;
-            background-color: orange;
-            border-radius: 5px;
-            font-weight: bold;
-            border: none;
-            color: white;
+            padding: 5%;
 
         }
 
-        /* Define the red color for the selected li */
-        /* Define the red color for the selected li */
+        #deleteBtn:hover {
+            background-color: #E53935;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
     <nav>
-        <a href="#" class="logo"><img class="logo_legal" src="../logo_legal_guidance.png" alt=""></span></a>
+        <a href="#" class="logo"><img class="logo_legal" src="./logo_legal_guidance.png " alt=""></span></a>
         <div class="menutoggle" onclick="togglemenu();">
         </div>
         <ul class="navigation">
             <!-- <li><a href="#banner">Solution</a></li> -->
             <li><a href="#about">Partners</a></li>
-            <li><a href="./lawyers.card.html">Lawyers</a></li>
-            <li><a href="./client.appointment.html">My Appointments</a></li>
-            <li><a href="#signup" id="logoutBtn">Log Out</a></li>
+            <li><a href="../Clients/lawyers.card.html">Lawyers</a></li>
+            <li><a href="#">My Appointments</a></li>
+            <li><a href="#signin" id="logoutBtn">Log Out</a></li>
         </ul>
     </nav>
-    <div style="margin-top:150px;">
+
+
+
+
+    <div id="contanier" style="margin-top:120px;">
         <h1
             style=" width:90% ; margin:auto; text-align: center; padding:2%;background-color: orange;margin-bottom: 5%;">
-            Book Appointments
+            Appointments
         </h1>
-        <div id="main-container">
 
-            <div class="wrapper">
-                <header>
-                    <p class="current-date"></p>
-                    <div class="icons">
-                        <span id="prev" class="material-symbols-rounded">chevron_left</span>
-                        <span id="next" class="material-symbols-rounded">chevron_right</span>
-                    </div>
-                </header>
-                <div class="calendar">
-                    <ul class="weeks">
-                        <li>Sun</li>
-                        <li>Mon</li>
-                        <li>Tue</li>
-                        <li>Wed</li>
-                        <li>Thu</li>
-                        <li>Fri</li>
-                        <li>Sat</li>
-                    </ul>
-                    <ul class="days" id="myList"></ul>
-                </div>
-            </div>
+        <table id="recipt">
+            <tr id="row">
+                <th>Sr. No.</th>
+                <th>Name</th>
+                <th>Lawyer Name</th>
+                <th>Subject</th>
+                <th>Details</th>
+                <th>Date</th>
+                <th>Timing</th>
+                <th>Status</th>
+                <th>Cancel</th>
+            </tr>
 
-            <!--  slots -->
+            <tbody id="elements">
 
-            <div id="slots">
-                <h3>Date : <span id="selectedDate"></span> </h3>
-                <div id="">
-                    <button class="disableBtn" onclick="handleButtonClick(this)">10:00 am to 11:00 am</button>
-                    <button class="disableBtn" onclick="handleButtonClick(this)">12:00 pm to 01:00 pm</button>
-                    <button class="disableBtn" onclick="handleButtonClick(this)">02:00 pm to 03:00 pm</button>
-                    <button class="disableBtn" onclick="handleButtonClick(this)">04:00 pm to 05:00 pm</button>
+                <!-- append item bill here -->
 
-                </div>
+            </tbody>
 
-            </div>
-
-            <!--  Forms  For booking-->
-            <div>
-                <div class="container">
-                    <h2>Contact Form</h2>
-                    <form id="contactForm">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" required>
-
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" required>
-
-                        <label for="address">Address:</label>
-                        <input type="text" id="address" required>
-
-                        <label for="phone">Phone:</label>
-                        <input type="tel" id="phone" required>
-
-                        <label for="subject">Subject:</label>
-                        <input type="text" id="subject" required>
-
-                        <label for="details">Details:</label>
-                        <textarea id="details" rows="4" required></textarea>
-                        <button type="submit" id="formButton">Submit</button>
-                    </form>
-                </div>
-            </div>
+        </table>
 
 
-        </div>
+
     </div>
-
-
 
     <!--  Footer -->
     <!-- footer-section  -->
@@ -343,39 +223,11 @@
         </footer>
     </div>
 
-    <script src="./booking.js"></script>
-
+    <script src="./client.appointment.js"></script>
 
 </body>
 
 <script>
-    window.addEventListener('scroll', function () {
-        const header = document.querySelector('header');
-        header.classList.toggle("sticky", window.scrollY > 0);
-    });
-
-    function togglemenu() {
-        const menutoggle = document.querySelector('.menutoggle');
-        const navigation = document.querySelector('.navigation');
-        menutoggle.classList.toggle('active');
-        navigation.classList.toggle('active');
-    };
-    let user = JSON.parse(localStorage.getItem("auth"));
-    let logoutBtn = document.getElementById("logoutBtn")
-
-    logoutBtn.addEventListener("click", async () => {
-        const response = await fetch(`${url}user/logout`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${user.token}`,
-            },
-        });
-        localStorage.removeItem("auth");
-        localStorage.removeItem("lawyerId");
-        console.log(response);
-        window.location.href = "../loginSignup.html";
-    });
 
 
 

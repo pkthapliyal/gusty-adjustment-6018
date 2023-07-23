@@ -2,12 +2,12 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: #fcf5eb;
+  background-color: #FCF5EB;
   color: white;
 }
 
 .navbar {
-  background-color: #f89d1f;
+  background-color: #F89D1F;
   padding: 10px;
   display: flex;
   align-items: center;
@@ -21,7 +21,7 @@ body {
 }
 
 .form-container {
-  background-color: #f89d1f;
+  background-color: #F89D1F;
   padding: 20px;
   margin: 148px auto;
   max-width: 500px;
@@ -55,7 +55,7 @@ body {
 
 .form-container button {
   padding: 10px;
-  background-color: #102d47;
+  background-color: #102D47;
   color: white;
   border: none;
   border-radius: 5px;
@@ -63,7 +63,7 @@ body {
 }
 
 .form-container button:hover {
-  background-color: #134c7a;
+  background-color: #134C7A;
 }
 
 .form-error {
@@ -71,9 +71,12 @@ body {
   font-size: 14px;
   margin-top: -10px;
 }
+
 .logo img {
   width: 210px;
   height: 48px;
+  margin-left: 20px;
+  border: 4px;
 }
 
 .slide-down {
@@ -81,11 +84,23 @@ body {
   opacity: 0;
 }
 
+#profile {
+  font-size: 24px;
+  margin-right: 20px;
+  background-color: #102D47;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
 @keyframes slideDownAnimation {
   0% {
     transform: translateY(-50px);
     opacity: 0;
   }
+
   100% {
     transform: translateY(0);
     opacity: 1;
@@ -94,19 +109,21 @@ body {
 
 .sliding-box {
   position: fixed;
-  top: -200px; /* Start above the form container */
+  top: -200px;
+  /* Start above the form container */
   right: 20px;
   width: 200px;
   padding: 10px;
-  background-color: #f9f9f9;
+  background-color: #F9F9F9;
   border-radius: 4px;
-  box-shadow: 0 0 10px #f89d1f;
+  box-shadow: 0 0 10px #F89D1F;
   transition: top 0.5s ease;
   z-index: 999;
 }
 
 .sliding-box.active {
-  top: 124px; /* Slide in to top of the form container */
+  top: 124px;
+  /* Slide in to top of the form container */
 }
 
 .sliding-box h2,
@@ -114,10 +131,16 @@ body {
   margin: 0;
   color: #333;
 }
+
 .form-container textarea {
   padding: 8px;
   margin-bottom: 10px;
   border: none;
   border-radius: 5px;
-  resize: vertical; /* Allows vertical resizing of the text area */
+  resize: vertical;
+  /* Allows vertical resizing of the text area */
+}
+
+.hidden {
+  display: none;
 }

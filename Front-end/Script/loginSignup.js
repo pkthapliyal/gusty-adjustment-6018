@@ -1,88 +1,106 @@
 const sign_in_btn = document.querySelector("#sign-in-btn");
 const sign_up_btn = document.querySelector("#sign-up-btn");
 const container = document.querySelector(".container");
-
 sign_up_btn.addEventListener("click", () => {
     container.classList.add("sign-up-mode");
 });
-
 sign_in_btn.addEventListener("click", () => {
     container.classList.remove("sign-up-mode");
 });
-
+const signUpForm = document.querySelector("#formsignup");
+const signInForm = document.querySelector("#formlogin");
 // -----------signup--------------
-let loginForm = document.querySelector(".sign-in-form");
-document.querySelector("#form").addEventListener("submit", function (e) {
-    e.preventDefault()
-    let name = document.querySelector("#name").value
-    let email = document.querySelector("#email").value
-    let number = document.querySelector("#phonenum").value
-    let password = document.querySelector("#pass").value
-    if (name == "" || email == "" || number == "" || password == "") {
-        alert("Please fill the form")
-    } else {
-        let obj = { name, email, password, role: "user" };
-        console.log(obj)
-        signup_fetch(obj)
+signUpForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    let name = document.querySelector("#signup_name").value;
+    let email = document.querySelector("#signup_email").value;
+    let mobile = document.querySelector("#signup_mobile").value;
+    let password = document.querySelector("#signup_password").value;
+    //   let role = document.querySelectorAll("#signup_user_type");
+    const userTypeRadios = document.getElementsByName("userType");
+    let selectedValue = "";
+    for (const radio of userTypeRadios) {
+        if (radio.checked) {
+            role = radio.value;
+            break;
+        }
     }
-})
-
+    if (
+        name == "" ||
+        email == "" ||
+        mobile == "" ||
+        password == "" ||
+        role === ""
+    ) {
+        alert("Please fill the form");
+    } else {
+        let obj = {
+            name,
+            email,
+            mobile,
+            password,
+            role,
+        };
+        console.log(obj);
+        signup_fetch(obj);
+    }
+});
+let url = "https://legal-guidance.onrender.com/"
 async function signup_fetch(obj) {
     try {
-        let responce = await fetch("http://localhost:8080/user/register", {
+        let responce = await fetch(`${url}user/register`, {
             method: "POST",
             headers: {
-                "Content-Type": "Application/json"
+                "Content-Type": "Application/json",
             },
-            body: JSON.stringify(obj)
+            body: JSON.stringify(obj),
         });
         if (responce.ok) {
-            let res = await responce.json()
-            alert(res.msg)
-            window.location.href = loginForm
-            console.log("hello")
-            console.log(res)
+            let res = await responce.json();
+            alert(res.message);
+            window.location.reload();
+            console.log("hello");
+            console.log(res);
         }
     } catch (error) {
-        console.log("error", error)
-
+        console.log("error", error);
+        alert("Something Went Wrong");
     }
 }
-
-
 // ---------------login--------------------------
-document.querySelector("#formlogin").addEventListener("submit", (e) => {
-    e.preventDefault()
-    let email = document.querySelector("#useremail").value
-    let password = document.querySelector("#userpassword").value
+signInForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let email = document.querySelector("#login_email").value;
+    let password = document.querySelector("#login_password").value;
     if (email == "" && password == "") {
-        alert("Fill the all credentials")
-
+        alert("Fill the all credentials");
     } else {
-        let obj = { email, password }
-        loginFetch(obj)
+        let obj = { email, password };
+        loginFetch(obj);
     }
-})
-
+});
 async function loginFetch(obj) {
     try {
-        let responce = await fetch("http://localhost:8080/user/login", {
+        let responce = await fetch(`${url}user/login`, {
             method: "POST",
             headers: {
-                'Content-Type': "Application/json"
+                "Content-Type": "Application/json",
             },
-            body: JSON.stringify(obj)
-        })
+            body: JSON.stringify(obj),
+        });
         if (responce.ok) {
-            let ans = await responce.json()
-            console.log(ans)
-            alert(ans.msg);
-            localStorage.setItem("token", ans.token)
-            window.location.href = "../index.html"
-            console.log("hello from login")
-            console.log(ans)
+            let ans = await responce.json();
+            if (ans.userData.role === "lawyer") {
+                window.location.replace("../LawyersPage/lawyer.html");
+            } else if (ans.userData.role === "client") {
+                window.location.replace("../Clients/lawyers.card.html");
+            } else {
+                window.reload();
+            }
+            localStorage.setItem("auth", JSON.stringify(ans));
+            ans.lawyer._id && localStorage.setItem("lawyerId", ans.lawyer._id);
         }
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }

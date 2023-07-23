@@ -1,5 +1,60 @@
-/* Import Google font - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+}
+
+
+
+/*  users details */
+#contanier {
+    width: 100%;
+    /* margin: auto; */
+    margin-top: 200px;
+    padding: 5%;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+
+}
+
+th,
+td {
+    box-sizing: border-box;
+    border: .5px solid #f89d1f;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-collapse: collapse;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+
+}
+
+table {
+    width: 90%;
+    margin: auto;
+    box-sizing: border-box;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+    background: linear-gradient(#1cd8d2 → #93edc7);
+
+}
+
+
+p,
+h3,
+h4 {
+    padding: 3px;
+    margin: 0px;
+}
+
+/*  Nav bar */
 
 * {
     margin: 0;
@@ -189,131 +244,6 @@ nav {
 
 }
 
-/*  Main calender */
-.wrapper {
-    /* width: 300px; */
-    padding-bottom: -200px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-}
-
-.wrapper header {
-    display: flex;
-    align-items: center;
-    padding: 25px 30px 10px;
-    justify-content: space-between;
-}
-
-header .icons {
-    display: flex;
-}
-
-header .icons span {
-    height: 20px;
-    width: 20px;
-    margin: 0 1px;
-    cursor: pointer;
-    color: #878787;
-    text-align: center;
-    line-height: 38px;
-    font-size: 1.9rem;
-    user-select: none;
-    border-radius: 50%;
-}
-
-
-
-
-.icons span:last-child {
-    margin-right: -10px;
-}
-
-header .icons span:hover {
-    background: #f2f2f2;
-}
-
-header .current-date {
-    font-size: 1.1rem;
-    font-weight: 500;
-}
-
-.calendar {
-    padding: 20px;
-}
-
-.calendar ul {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-    text-align: center;
-}
-
-/* .calendar .days {
-    margin-bottom: 5px;
-} */
-
-.calendar li {
-    color: #333;
-    width: calc(100% / 7);
-    font-size: 1.0rem;
-    font-weight: 300;
-}
-
-.calendar .weeks li {
-    font-weight: 400;
-    cursor: default;
-}
-
-.calendar .days li {
-    /* z-index: 1; */
-    cursor: pointer;
-    position: relative;
-    margin-top: 15px;
-}
-
-.days li.inactive {
-    color: #aaa;
-}
-
-.days li.active {
-    background-color: orange;
-    border-radius: 50%;
-    color: white;
-    font-weight: bold;
-}
-
-.days li::before {
-    position: absolute;
-    content: "";
-    left: 50%;
-    top: 50%;
-    height: 40px;
-    width: 40px;
-    z-index: -1;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.days li.active::before {
-    background: #FFCC80;
-}
-
-.days li:not(.active):hover::before {
-    background: #f2f2f2;
-}
-
-#slot {
-    display: block;
-
-}
-
-#slot button {
-    width: 100%;
-}
-
-
-/* Footer */
 .pg-footer {
     font-family: 'Roboto', sans-serif;
 }
@@ -568,6 +498,7 @@ a {
 
 
 
+
 /* Media Query For different screens */
 @media (min-width:320px) and (max-width:479px) {
 
@@ -642,87 +573,7 @@ a {
 }
 
 @media (min-width: 568px) {
-    .footer-content-column {
+    /* .footer-content-column {
         width: 49.99%;
-    }
-
-
-}
-
-
-/* Base styles for all screen sizes */
-#main-container {
-    width: 90%;
-    box-sizing: border-box;
-    margin: auto;
-
-    border: 1px solid teal;
-    display: grid;
-    /* padding: 2%; */
-    grid-template-columns: 25% 15% 40%;
-    column-gap: 10%;
-}
-
-#main-container>div:nth-child(1) {
-    height: fit-content;
-}
-
-#main-container>div:nth-child(2) {
-    height: fit-content;
-    margin-top: 50%;
-}
-
-/* Media query for screens with width 600px or less (e.g., mobile devices) */
-@media screen and (max-width: 600px) {
-    #main-container {
-        grid-template-columns: 100%;
-        grid-gap: 10px;
-    }
-
-    #main-container>div:nth-child(1) {
-        margin-top: 20px;
-    }
-
-    #main-container>div:nth-child(2) {
-        margin-top: 20px;
-    }
-}
-
-/* Media query for screens with width between 601px and 1024px (e.g., tablets) */
-@media screen and (min-width: 601px) and (max-width: 1024px) {
-    #main-container {
-        grid-template-columns: 50% 45%;
-        grid-gap: 20px;
-    }
-
-    #main-container>div:nth-child(1) {
-        margin-top: 40px;
-    }
-
-    #main-container>div:nth-child(2) {
-        margin-top: 40px;
-    }
-
-    #main-container>div:nth-child(3) {
-        grid-template-rows: 2;
-        grid-column-start: 1;
-        grid-row-end: 3;
-        grid-column-end: 3;
-    }
-}
-
-/* Media query for screens with width greater than 1024px (e.g., desktops) */
-@media screen and (min-width: 1025px) {
-    #main-container {
-        grid-template-columns: 30% 20% 40%;
-        grid-gap: 30px;
-    }
-
-    #main-container>div:nth-child(1) {
-        /* margin-top: 80px; */
-    }
-
-    #main-container>div:nth-child(2) {
-        /* margin-top: 80px; */
-    }
+    } */
 }
