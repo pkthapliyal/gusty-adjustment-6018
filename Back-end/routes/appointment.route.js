@@ -3,26 +3,29 @@ const mongoose = express("mongoose")
 const nodemailer = require("nodemailer")
 
 const { AppointmentModel } = require("../model/appointment.model");
+const { LawyerModel } = require("../model/lawyer.model");
 const appointRoute = express.Router();
 
 appointRoute.post("/", async (req, res) => {
     try {
         let lawyerId = req.body.lawyerId;
         const isLawyer = await AppointmentModel.findOne({ lawyerId: lawyerId });
-        console.log(isLawyer)
+
         if (isLawyer) {
             const { address, clientId, date, details, email, name, phone, subject, time } = req.body
-
 
             await AppointmentModel.updateOne({ lawyerId: lawyerId }, { $push: { appointments: { address, clientId, date, details, email, name, phone, subject, time } } })
 
             if (time < "12:00") {
-                time = time + "am"
+                var Time = time + "am"
             }
             else {
-                time = time + "pm"
+                var Time = time + "pm"
             }
-            main(subject, details, time, date, name, email)
+
+            let from = isLawyer.email;
+            let to = email
+            main(subject, details, Time, date, name, from, to)
             return res.status(201).send({
                 status: true,
                 message: "One appointment has been scheduled !"
@@ -34,15 +37,17 @@ appointRoute.post("/", async (req, res) => {
         const appointment = { lawyerId: lawyerId, appointments: [{ address, clientId, date, details, email, name, phone, subject, time }] }
 
         const appoint = await AppointmentModel(appointment)
-        appoint.save(isLawyer)
+        appoint.save(appoint)
         //  Nodemailer 
         if (time < "12:00") {
-            time = time + "am"
+            var Time = time + "am"
         }
         else {
-            time = time + "pm"
+            var Time = time + "pm"
         }
-        main(subject, details, time, date, name, email)
+        let from = isLawyer.email;
+        let to = email
+        main(subject, details, Time, date, name, from, to)
 
         return res.status(201).send({
             status: true,
@@ -50,6 +55,7 @@ appointRoute.post("/", async (req, res) => {
         })
 
     } catch (err) {
+        console.log(err.message)
         res.status(501).send({
             status: false,
             message: "Not Created !"
@@ -78,6 +84,7 @@ appointRoute.get("/", async (req, res) => {
 //  perticulaar appointment 
 
 appointRoute.get("/:id", async (req, res) => {
+
     try {
         const appoint = await AppointmentModel.findOne({ lawyerId: req.params.id })
         res.status(201).send({
@@ -129,8 +136,43 @@ appointRoute.delete("/:lawyerId/:id", async (req, res) => {
     }
 })
 
+//  Client is getting his individual appointments from lawyerId and clientId
+appointRoute.get("/:lawyerId/:clientId", async (req, res) => {
+    try {
+        const { clientId, lawyerId } = req.params
+
+        const lawyer = await LawyerModel.findOne(
+            { userId: lawyerId },
+            { _id: 0, name: 1 }
+        );
+
+
+        let data = await AppointmentModel.aggregate([
+
+            { $match: { lawyerId: lawyerId } },
+            { $unwind: "$appointments" },
+            { $match: { "appointments.clientId": clientId } },
+
+        ])
+
+        // data[0].lawyerName = lawyer;
+        data.forEach(i => i.lawyerName = lawyer)
+        res.status(202).send({
+            status: true,
+            data: data
+        })
+
+
+    } catch (err) {
+        res.status(204).send({
+            status: false,
+            message: "Bad request !"
+        })
+    }
+})
+
 //  Nodemails ---------------->>>>>>>>>>>>>;
-async function main(subject, details, time, date, name, email) {
+async function main(subject, details, Time, date, name, from, to) {
     // Generate test SMTP service account from ethereal.email
     // Only needed if you don't have a real mail account for testing
     let testAccount = await nodemailer.createTestAccount();
@@ -149,13 +191,13 @@ async function main(subject, details, time, date, name, email) {
     // send mail with defined transport object
 
     let info = await transporter.sendMail({
-        from: 'pk33360@gmail.com', // sender address
-        to: `pkthapliyal101@gmail.com`, // list of receivers
+        from: `${from}`, // sender address
+        to: `${to}`, // list of receivers
         subject: `Appointment regarding ${subject}`, // Subject line
         // text: `Hello ${name}\n Your OTP: ${OTP}\n This OTP will expire in 60 sec.`, // plain text body
         html: `<p> Hello <b> ${name}</b> </p><br/>
         <p>This is an auto-generated email from Legal Guidance. We want to infrom you that your appointment has been confirmed throught Legal Guidance regarding the subject mentioned.</p> <br/>
-        <p>Meeting Details : Time : ${time} , <b>${date}</b></p><br/>
+        <p>Meeting Details : Time : ${Time} , <b>${date}</b></p><br/>
          <p><b>Regards, </b></p><br/>
           <p><b>Legal Guidance</b></p><br/>
         `, // html body

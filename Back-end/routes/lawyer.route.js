@@ -3,37 +3,53 @@ const { auth } = require("../middleware/authenticate");
 const { LawyerModel } = require("../model/lawyer.model");
 const { UserModel } = require("../model/user.model");
 const lawyerRoute = express.Router();
-
 lawyerRoute.post("/add", auth, async (req, res) => {
   try {
     const { location, specialization, practiceAreas, image, description } =
       req.body;
-
     const userId = req.userId;
     const user = await UserModel.findById(req.userId);
     console.log(user);
-
-    const newLawyer = new LawyerModel({
+    let lawyer;
+    const existingLawyer = await LawyerModel.findOne({
       userId,
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      role: user.role,
-      isVerified: user.isVerified,
-      location,
-      specialization,
-      practiceAreas,
-      image,
-      description,
     });
-    await newLawyer.save();
-    res.status(200).send(newLawyer);
+    if (existingLawyer) {
+      lawyer = await LawyerModel.findByIdAndUpdate(
+        existingLawyer._id,
+        {
+          location,
+          specialization,
+          practiceAreas,
+          image,
+          description,
+        },
+        {
+          new: true,
+        }
+      );
+    } else {
+      lawyer = new LawyerModel({
+        userId,
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        role: user.role,
+        isVerified: user.isVerified,
+        location,
+        specialization,
+        practiceAreas,
+        image,
+        description,
+      });
+      await lawyer.save();
+    }
+    res.status(200).send(lawyer);
   } catch (error) {
     console.log(error);
     res.status(401).send(error);
   }
 });
-
 //  All lawyers with profile
 lawyerRoute.get("/", async (req, res) => {
   const { id } = req.query;
@@ -44,7 +60,6 @@ lawyerRoute.get("/", async (req, res) => {
   let laywers = await LawyerModel.find();
   res.status(200).send(laywers);
 });
-
 lawyerRoute.get("/:id", auth, async (req, res) => {
   try {
     const lawyer = await LawyerModel.findById(req.params.id).exec();
@@ -57,25 +72,20 @@ lawyerRoute.get("/:id", auth, async (req, res) => {
     res.status(500).json({ error: "Server Error" });
   }
 });
-
-lawyerRoute.get("/find-id", auth, async (req, res) => {
-  try {
-    const userId = req.userId;
-
-    // Find the lawyer based on the userId
-    const lawyer = await LawyerModel.findOne({ lawyerId: userId }).exec();
-
-    if (!lawyer) {
-      return res.status(404).json({ error: "Lawyer not found" });
-    }
-
-    res.status(200).json({ lawyerId: lawyer });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "Server Error" });
-  }
-});
-
+// lawyerRoute.get("/find-id", auth, async (req, res) => {
+//   try {
+//     const userId = req.userId;
+//     // Find the lawyer based on the userId
+//     const lawyer = await LawyerModel.findOne({ lawyerId: userId }).exec();
+//     if (!lawyer) {
+//       return res.status(404).json({ error: "Lawyer not found" });
+//     }
+//     res.status(200).json({ lawyerId: lawyer });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ error: "Server Error" });
+//   }
+// });
 lawyerRoute.put("/:id", auth, async (req, res) => {
   try {
     const {
@@ -97,46 +107,35 @@ lawyerRoute.put("/:id", auth, async (req, res) => {
       },
       { new: true }
     ).exec();
-
     if (!updatedLawyer) {
       return res.status(404).json({ error: "Lawyer not found" });
     }
-
     res.status(200).json(updatedLawyer);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Server Error" });
   }
 });
-
 lawyerRoute.delete("/:id", auth, async (req, res) => {
   try {
     const deletedLawyer = await LawyerModel.findByIdAndDelete(
       req.params.id
     ).exec();
-
     if (!deletedLawyer) {
       return res.status(404).json({ error: "Lawyer not found" });
     }
-
     res.status(200).json({ message: "Lawyer deleted successfully" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Server Error" });
   }
 });
-
-
 lawyerRoute.get("/", async (req, res) => {
   const { id } = req.query;
-
   if (id) {
     const lawyer = await LawyerModel.findOne({ _id: id });
   }
-
   let laywers = await LawyerModel.find();
   res.status(200).send(laywers);
 });
-
-
 module.exports = { lawyerRoute };
