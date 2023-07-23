@@ -18,7 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
       .getElementById("specialization")
       .value.trim();
     const practiceAreas = document.getElementById("practiceAreas").value.trim();
-    const image = document.getElementById("image").files[0]; // Get the uploaded image file
+    const image = document.getElementById("image").files[0];
+    const description = document.getElementById("description").value.trim();
 
     if (!location || !specialization || !practiceAreas || !image) {
       const errorContainer = document.createElement("p");
@@ -33,44 +34,36 @@ document.addEventListener("DOMContentLoaded", function () {
       location: location,
       specialization: specialization,
       practiceAreas: practiceAreas,
-
-      image: convertToBase64(), // Use the file name as a placeholder
+      description: description,
+      image: await toBase64(image),
     };
+    console.log("---------", formData);
 
-    // const { location, specialization, slots, practiceAreas, image } = req.body;
-
-    // Convert the object to JSON and send it in the request body
-
-    // const response = await fetch("http://localhost:3300/lawyer/add", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGI3YWViNGI5MjRkZjE2MWJjZmZlODEiLCJpYXQiOjE2ODk5MTkxOTgsImV4cCI6MTY4OTkyMjc5OH0.iH3zEFX3I6Bo3sSf9VlSMq2kYSaNQsdwJTSO2gRZjTM`,
-    //   },
-    //   body: JSON.stringify(formData),
-    // });
-    // const responseData = await response.json();
-    // console.log("Response:", responseData);
+    const response = await fetch("http://localhost:3300/lawyer/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGI3YWViNGI5MjRkZjE2MWJjZmZlODEiLCJpYXQiOjE2OTAwNDAxNzYsImV4cCI6MTY5MDA0Mzc3Nn0.6Yvhkybli2wKFHC6k8xzDtf93CXNvmM775gdoN-GUrA`,
+      },
+      body: JSON.stringify(formData),
+    });
+    const responseData = await response.json();
+    localStorage.setItem("lawyerId", responseData._id);
+    console.log("Response:", responseData);
   });
 
-  function convertToBase64() {
-    const fileInput = document.getElementById("image");
-
-    // Check if a file was selected
-    if (fileInput.files.length > 0) {
-      const file = fileInput.files[0];
+  const toBase64 = (file) =>
+    new Promise((resolve, reject) => {
       const reader = new FileReader();
-
-      reader.onload = function (event) {
-        const base64String = event.target.result;
-        const outputDiv = document.getElementById("output");
-        outputDiv.innerHTML = `<img src="${base64String}" alt="Converted Image">`;
-        console.log(base64String);
-        return base64String;
-      };
-
-      // Read the file as a Data URL (Base64-encoded string)
       reader.readAsDataURL(file);
-    }
-  }
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+    });
+});
+
+let lawyer_Id = localStorage.getItem("lawyerId");
+const profileBtn = document.getElementById("profile");
+profileBtn.addEventListener("click", () => {
+  console.log("clicked");
+  window.location.href = `../LawyerProfile/LawyerProfile.html?lawyerid=${lawyer_Id}`;
 });

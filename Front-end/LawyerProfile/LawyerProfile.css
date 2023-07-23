@@ -1,0 +1,119 @@
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fcf5eb;
+}
+
+.navbar {
+  background-color: #102d47;
+  color: #fff;
+  text-align: center;
+  padding: 14px;
+  font-size: 30px;
+}
+
+.profile-container {
+  max-width: 40%;
+  margin: 20px auto;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fade-in 1s ease;
+  border-radius: 20px;
+}
+
+.profile-image img {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  animation: bounce-in 1s ease;
+}
+
+.profile-details {
+  text-align: center;
+  animation: slide-in 1s ease;
+}
+
+h2 {
+  margin-bottom: 10px;
+  color: #102d47;
+  font-size: 42px;
+}
+
+p {
+  margin-bottom: 40px;
+  color: #102d47;
+  background-color: #f89d1f;
+  font-size: 24px;
+  padding: 10px;
+  border-radius: 8px;
+}
+.editBtn {
+  margin-bottom: 40px;
+  color: white;
+  background-color: #102d47;
+  font-size: 24px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.email-element,
+.location-element,
+.specialization-element,
+.practice-areas-element {
+  color: #102d47;
+  font-weight: bold;
+}
+
+.profile-button {
+  background-color: #f89d1f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.profile-button:hover {
+  background-color: #f57400;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

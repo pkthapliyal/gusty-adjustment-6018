@@ -114,3 +114,10 @@ body {
   margin: 0;
   color: #333;
 }
+.form-container textarea {
+  padding: 8px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  resize: vertical; /* Allows vertical resizing of the text area */
+}
