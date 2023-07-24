@@ -1,5 +1,27 @@
 # gusty-adjustment-6018
 <!-- Crated folder -->
+
+Website Name-Legal Guidance
+
+Legal Guidance is a comprehensive platform where clients can find experienced lawyers 
+to address their legal matters effectively and receive professional advice and assistance
+
+Find the right lawyer for your legal needs at Legal Guidance, a one-stop website offering
+expert legal assistance and guidance to clients seeking reliable legal solutions
+
+Tech Stack
+----------
+-HTML
+-CSS
+-JAVASCRIPT
+-MONGO DB
+-NODE JS
+-EXPRESS
+
+
+
+
+
 Home Page
 ----------
 ![image](https://github.com/pkthapliyal/gusty-adjustment-6018/assets/121330309/c7be8f30-b1f0-4d1f-aad0-884f1e5c8407)
