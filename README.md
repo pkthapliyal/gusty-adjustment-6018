@@ -2,6 +2,7 @@
 <!-- Crated folder -->
 
 Website Name-Legal Guidance
+Deployed Link-https://legal-guidance.netlify.app/
 
 Legal Guidance is a comprehensive platform where clients can find experienced lawyers 
 to address their legal matters effectively and receive professional advice and assistance
